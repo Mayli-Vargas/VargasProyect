@@ -1,6 +1,6 @@
 ---
-title: "Uso de Quarto clase 6"
-autor: "Sheyla"
+title: "uso de Quarto clase 6"
+autor: "mayli"
 format:
   html:
     toc: true
