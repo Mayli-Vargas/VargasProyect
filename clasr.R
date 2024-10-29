@@ -1,27 +1,26 @@
 ---
-title: "uso de quarto clase 6 - maylivargas"
-autor: "mayli"
+  title: "Como usar quarto"
+author: "Flavio Lozano-Isla"
 format:
   html:
-    toc: true
-    toc-location: left
-    number-sections: true
-    embed-resources: true
-    output-file: index
-    editor_options: 
-      chunk_output_type: console
+  toc: true
+toc-location: left
+number-sections: true
+embed-resources: true
+output-file: index
+editor_options: 
+  chunk_output_type: console
 ---
-
-
-# Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+  
+  # Quarto
+  
+  Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
 
 ## Running Code
 
 When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
+  
+  ```{r}
 
 1 + 1
 
@@ -43,19 +42,19 @@ The `echo: false` option disables the printing of code (only output is displayed
 ## fuentes
 
 - Negrita: **esto es fuente negrita**
-- Cursiva: _Solanum tuberosum_
+  - Cursiva: _Solanum tuberosum_
 
 ## formulas matemáticas
 
 Este es el area de una circunferencia $Area_c\ =\ pi\cdot r^2$
-
-
-Esta es una formula cualquiera $$\frac{\left(2x\ -\ 1\right)^2\ -\ 1}{4}\ =\ k$$
-
-
-# Mi primera página web
-
-1. Tener mi proyecto
+  
+  
+  Esta es una formula cualquiera $$\frac{\left(2x\ -\ 1\right)^2\ -\ 1}{4}\ =\ k$$
+  
+  
+  # Mi primera página web
+  
+  1. Tener mi proyecto
 1. Conectar mi proyecto a Github
 1. Tener un archivo en formato html llamado `index.html`
 1. Hacer push al repositorio
@@ -68,9 +67,8 @@ Esta es una formula cualquiera $$\frac{\left(2x\ -\ 1\right)^2\ -\ 1}{4}\ =\ k$$
 
 ```{r}
 source('https://inkaverse.com/setup.r')
-gs4_auth(cache = ".secrets", email = "smaylivrojas.10@gmail.com")
-unlink(".secrets", recursive = TRUE)
-url <- "https://docs.google.com/spreadsheets/d/1dJujCqd0yGvlw7T89S9Skoly56fbzRk58oS-Hfq4RVI/edit?usp=sharing"
+
+url <- "https://docs.google.com/spreadsheets/d/15r7ZwcZZHbEgltlF6gSFvCTFA-CFzVBWwg3mFlRyKPs/edit?gid=172957346#gid=172957346"
 
 gs <- url %>% 
   as_sheets_id()
@@ -81,7 +79,8 @@ fb <- gs %>%
 
 str(fb)
 ```
- 
+
+
 ## Modelo lineal: lfa
 
 ```{r}
@@ -92,6 +91,7 @@ anova(modelo)
 
 plot(modelo)
 ```
+
 ### boxplot
 
 ```{r}
@@ -105,6 +105,8 @@ theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Inclinar etiquetas del eje X
 
 ```
+
+
 ## Modelo lineal: hi
 
 ```{r}
@@ -115,6 +117,8 @@ anova(modelo)
 
 plot(modelo)
 ```
+
+
 ## Modelo lineal mixto: lfa
 
 ```{r}
@@ -131,6 +135,8 @@ plot(modelo)
 ol <- boxplot(lfa ~ riego*geno, fb)
 ol
 ```
+
+
 ```{r}
 library(inti)
 
@@ -141,6 +147,10 @@ model <- remove_outliers(data = fb
 
 model
 ```
+
+
+# Agricolae: Comparación de medias
+
 ```{r}
 modelo <- lm(formula = lfa ~  bloque + riego + geno + riego*geno
              , data = fb)
@@ -170,6 +180,7 @@ grupos <- tukey_result$groups %>%
 str(grupos)
 
 ```
+
 ```{r}
 ggplot(grupos, aes(x = geno, y = lfa, fill = riego)) +
   geom_bar(stat = "identity", position = "dodge", color = "black") +
@@ -204,6 +215,7 @@ cm3 <- emmeans(modelo, ~ riego * geno) %>%
   cld(Letters = letters, reversed = T)
 cm3
 ```
+
 ## grafico
 
 ```{r}
@@ -220,49 +232,4 @@ ggplot(dtcm, aes(x = geno, y = emmean, fill = riego)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ggtitle("Gráfico de barras: HI por genotipo y riego")
 
-```
-# Análisis multivariado
-
-```{r}
-str(fb)
-```
-## Correlación
-
-```{r}
-library(psych)
-
-fb %>% 
-  select_if(is.numeric) %>% 
-  dplyr::select(!c("block")) %>% 
-  pairs.panels(x = .
-               , hist.col="red"
-               , pch = 21
-               , stars = TRUE
-               , scale = FALSE
-               , lm = TRUE
-               ) 
-```
-## PCA: Análisis de componentes principales
-
-```{r}
-library(FactoMineR)
-
-mv <- fb %>% 
-  group_by(riego, geno) %>% 
-  summarise(across(where(is.numeric), ~ mean(., na.rm = TRUE))) %>% 
-  PCA(scale.unit = T, quali.sup = c(1:4), graph = F)
-
-
-p1 <- plot(mv
-     , choix="ind"
-     , habillage=1
-     , label = "ind"
-     )
-
-
-p2 <- plot(mv
-     , choix="var")
-
-list(p1, p2) %>% 
-  plot_grid(plotlist = ., nrow = 1)
 ```
