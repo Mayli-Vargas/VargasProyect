@@ -69,7 +69,8 @@ Esta es una formula cualquiera $$\frac{\left(2x\ -\ 1\right)^2\ -\ 1}{4}\ =\ k$$
 ```{r}
 source('https://inkaverse.com/setup.r')
 gs4_auth(cache = ".secrets", email = "smaylivrojas.10@gmail.com")
-unlink(".secrets", recursive = TRUE)
+#unlink(".secrets", recursive = TRUE)
+#gs4_auth()
 url <- "https://docs.google.com/spreadsheets/d/1dJujCqd0yGvlw7T89S9Skoly56fbzRk58oS-Hfq4RVI/edit?usp=sharing"
 
 gs <- url %>% 
