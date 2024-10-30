@@ -1,6 +1,6 @@
 ---
-title: "uso de quarto clase 6 - maylivargas"
-autor: "mayli"
+title: "uso de quarto"
+author: "Mayli Vargas Rojas"
 format:
   html:
     toc: true
